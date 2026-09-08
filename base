@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto final de Tecnología U4</title>
+    <link rel="icon" type="image/png" href="Recursos/img/LOGO_CAPOUILLIEZ - Isotipos (2)-08.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            background-image: url('Recursos/img/fondo.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed; 
+            font-family: 'Roboto', sans-serif;
+            color: #2c3e50;
+            background-color: #0b0f19;
+        }
+
+        /* --- HEADER CREATIVO --- */
+        header {
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95));
+            border-bottom: 3px solid #00f2fe;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6), 0 0 20px rgba(0, 242, 254, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+        }
+        .subtitulo-header {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* --- CONTENIDO PRINCIPAL (GRILLA DE PESTAÑAS) --- */
+        main {
+            flex: 1;
+            padding: 40px 20px; 
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 95%;
+            box-sizing: border-box;
+        }
+        
+        .intro-texto {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Contenedor en cuadrícula para que estén acopladas lado a lado */
+        .grilla-pestanas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        /* --- TARJETAS / PESTAÑAS PEQUEÑAS --- */
+        .semana {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 180px; 
+            overflow: hidden;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Cuando la tarjeta está abierta, abarca toda la grilla o se expande fluidamente */
+        .semana.abierta {
+            grid-column: 1 / -1; /* Ocupa todo el ancho disponible de la fila */
+            max-height: 2500px; 
+            transform: scale(1.01);
+            background: #ffffff; 
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            border-color: #00f2fe;
+        }
+
+        .semana h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #1e3a8a;
+            font-size: 1.25rem;
+            margin: 0 0 10px 0;
+            border-bottom: 2px solid rgba(30, 58, 138, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .semana p {
+            color: #475569;
+            line-height: 1.5;
+            margin: 0 0 15px 0;
+            font-size: 0.95rem;
+        }
+
+        /* Efecto de desvanecido inferior cuando está cerrada */
+        .semana::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.95));
+            transition: opacity 0.3s;
+        }
+        .semana.abierta::after { opacity: 0; }
+
+        /* --- VISORES Y VIDEOS --- */
+        .contenedor-visor, .contenedor-video {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+        }
+
+        .video-semana {
+            width: 100%;
+            display: block;
+        }
+
+        /* Bloqueo y desbloqueo de interacción según estado de la tarjeta */
+        .semana:not(.abierta) .contenedor-visor,
+        .semana:not(.abierta) .contenedor-video {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .semana.abierta .contenedor-visor,
+        .semana.abierta .contenedor-video {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #0f172a; 
+            color: #94a3b8;
+            border-top: 2px solid #1e3a8a;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+        }
+        footer span { font-weight: 500; letter-spacing: 1px; font-size: 0.95rem; }
+        footer img { 
+            transition: transform 0.3s ease; 
+            cursor: pointer; 
+            filter: brightness(0.9);
+        }
+        footer img:hover { transform: scale(1.1); }
+
+        @media(max-width:768px){
+            footer { flex-direction: column; gap: 15px; text-align: center; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Proyecto final de Tecnología U4</h1>
+        <p class="subtitulo-header">11° B - José González, Aaron Ligorría, Nelson Tzunún</p>
+    </header>
+
+    <main>
+        <p class="intro-texto">Haz clic en cada módulo interactivo para desplegar su contenido y evidencias multimedia.</p>
+
+        <!-- Cuadrícula de pestañas acopladas -->
+        <div class="grilla-pestanas">
+            
+            <!-- Pestaña 1 -->
+            <div class="semana">
+                <h2>Fase 1: Planteamiento</h2>
+                <p>Definición del problema central del proyecto final, objetivos principales y alcance de la unidad 4.</p>
+                <div class="contenedor-visor">
+                    <object 
+                        data="" 
+                        type="application/pdf" 
+                        width="100%" 
+                        height="450px">
+                    </object>
+                </div>
+            </div>
+
+            <!-- Pestaña 2 -->
+            <div class="semana">
+                <h2>Fase 2: Diseño y Diagrama</h2>
+                <p>Esquema de conexiones y estructuración inicial del circuito lógico en simulación.</p>
+                <div class="contenedor-video">
+                    <video controls class="video-semana">
+                        <source src="" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                </div>
+            </div>
+
+            <!-- Pestaña 3 -->
+            <div class="semana">
+                <h2>Fase 3: Código y Programación</h2>
+                <p>Implementación del código fuente, depuración de funciones y lógica de control de los sensores.</p>
+                <div class="contenedor-video">
+                    <video controls class="video-semana">
+                        <source src="" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                </div>
+            </div>
+
+            <!-- Pestaña 4 -->
+            <div class="semana">
+                <h2>Fase 4: Producto Final</h2>
+                <p>Pruebas de funcionamiento integrales, validación del prototipo y demostración de resultados.</p>
+                <div class="contenedor-video">
+                    <video controls class="video-semana">
+                        <source src="proyectofinal.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <span>Integrantes: José González, Aaron Ligorría, Nelson Tzunún - 11° B</span>
+  
+    </footer>
+
+    <script>
+        document.querySelectorAll('.semana').forEach(tarjeta => {
+            tarjeta.addEventListener('click', (e) => {
+                // Si la tarjeta está abierta y el clic es sobre un objeto interactivo (PDF/video), se permite su uso normal
+                if (tarjeta.classList.contains('abierta') && (e.target.closest('object') || e.target.closest('video'))) {
+                    return; 
+                }
+                // Alterna la clase para abrir/cerrar la tarjeta manteniendo el comportamiento original
+                tarjeta.classList.toggle('abierta');
+            });
+        });
+    </script>
+</body>
+</html>
