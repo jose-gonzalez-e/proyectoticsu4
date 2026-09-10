@@ -185,6 +185,36 @@
             pointer-events: auto;
             opacity: 1;
         }
+
+
+        .contenedor-imagen {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            background-color: #f8fafc;
+        }
+
+        .imagen-semana {
+            width: 100%;
+            max-width: 600px; /* Ajusta este valor si quieres que sea más grande o pequeña */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        /* Asegura que la imagen no bloquee el clic cuando la tarjeta esté cerrada */
+        .semana:not(.abierta) .contenedor-imagen {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .semana.abierta .contenedor-imagen {
+            pointer-events: auto;
+            opacity: 1;
+        }
         
         /* --- FOOTER --- */
         footer {
