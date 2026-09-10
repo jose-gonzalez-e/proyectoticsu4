@@ -160,7 +160,32 @@
             pointer-events: auto;
             opacity: 1;
         }
+.contenedor-audio {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            text-align: center;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
 
+        .audio-semana {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Control de interacción con las tarjetas cerradas/abiertas */
+        .semana:not(.abierta) .contenedor-audio {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .semana.abierta .contenedor-audio {
+            pointer-events: auto;
+            opacity: 1;
+        }
+        
         /* --- FOOTER --- */
         footer {
             display: flex;
